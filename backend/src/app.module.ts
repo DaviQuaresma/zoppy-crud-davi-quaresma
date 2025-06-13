@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ClientModule } from './client/client.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { AppService } from './app.service';
       database: process.env.DB_NAME || 'zoppydb',
       autoLoadModels: true,
       synchronize: true,
-  })
+    }),
+    ClientModule,
   ],
   controllers: [AppController],
   providers: [AppService],
