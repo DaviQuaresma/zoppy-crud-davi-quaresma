@@ -5,13 +5,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService, Client } from '../../../services/client.service';
 
 @Component({
-    selector: 'app-clients-form',
-    imports: [CommonModule, FormsModule],
-    templateUrl: './clients-form.component.html',
-    styleUrls: ['./clients-form.component.css']
+  selector: 'app-clients-form',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './clients-form.component.html',
+  styleUrls: ['./clients-form.component.css'],
 })
 export class ClientsFormComponent implements OnInit {
   client: Client = { name: '', email: '' };
+  errorMessage: string = ''; // ✅ Adicionado para tratar mensagens de erro
   isEditMode = false;
   id?: number;
 
@@ -34,15 +36,32 @@ export class ClientsFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.errorMessage = '';
+
+    if (!this.client.name || !this.client.email) {
+      this.errorMessage = 'Por favor, preencha todos os campos.';
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.client.email)) {
+      this.errorMessage = 'Informe um e-mail válido.';
+      return;
+    }
+
     if (this.isEditMode) {
       this.clientService.updateClient(this.id!, this.client).subscribe({
-        next: (res: Client) => this.router.navigate(['/']),
-        error: (err: any) => console.error('Erro ao atualizar', err),
+        next: () => this.router.navigate(['/']),
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Erro ao atualizar';
+        },
       });
     } else {
       this.clientService.createClient(this.client).subscribe({
-        next: (res: Client) => this.router.navigate(['/']),
-        error: (err: any) => console.error('Erro ao criar', err),
+        next: () => this.router.navigate(['/']),
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Erro ao criar';
+        },
       });
     }
   }
