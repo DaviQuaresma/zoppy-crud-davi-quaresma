@@ -5,11 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService, Client } from '../../../services/client.service';
 
 @Component({
-  selector: 'app-clients-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './clients-form.component.html',
-  styleUrls: ['./clients-form.component.css'],
+    selector: 'app-clients-form',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './clients-form.component.html',
+    styleUrls: ['./clients-form.component.css']
 })
 export class ClientsFormComponent implements OnInit {
   client: Client = { name: '', email: '' };

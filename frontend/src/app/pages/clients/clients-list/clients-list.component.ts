@@ -4,11 +4,10 @@ import { RouterModule } from '@angular/router';
 import { ClientService, Client } from '../../../services/client.service';
 
 @Component({
-  selector: 'app-clients-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './clients-list.component.html',
-  styleUrls: ['./clients-list.component.css'],
+    selector: 'app-clients-list',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './clients-list.component.html',
+    styleUrls: ['./clients-list.component.css']
 })
 export class ClientsListComponent implements OnInit {
   clients: Client[] = [];
