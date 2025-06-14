@@ -7,6 +7,8 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors(); // <- Aqui você habilita CORS padrão (tudo liberado)
+
   const config = new DocumentBuilder()
     .setTitle('Zoppy API')
     .setDescription('CRUD de clientes')

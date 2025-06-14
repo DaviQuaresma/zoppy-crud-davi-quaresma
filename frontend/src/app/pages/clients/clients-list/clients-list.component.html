@@ -1,1 +1,15 @@
-<p>clients-list works!</p>
+<div class="bg-white rounded-xl shadow p-6 max-w-3xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold text-[#0D2D6A] mb-6">Lista de Clientes</h2>
+
+  <ul *ngIf="clients.length > 0; else empty">
+    <li *ngFor="let client of clients" class="border-b pb-4 mb-4">
+      <p><span class="font-semibold">ID:</span> {{ client.id }}</p>
+      <p><span class="font-semibold">Nome:</span> {{ client.name }}</p>
+      <p><span class="font-semibold">Email:</span> {{ client.email }}</p>
+    </li>
+  </ul>
+
+  <ng-template #empty>
+    <p class="text-gray-500">Nenhum cliente cadastrado ainda.</p>
+  </ng-template>
+</div>
