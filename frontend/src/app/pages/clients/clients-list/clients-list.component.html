@@ -2,7 +2,10 @@
   class="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 bg-gray-100"
 >
   <section class="w-full max-w-3xl bg-white p-6 rounded-2xl shadow-lg">
-    <div class="flex justify-between items-center mb-6">
+    <!-- Cabeçalho -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4"
+    >
       <h2 class="text-2xl font-bold text-[#0D2D6A]">Lista de Clientes</h2>
       <a
         routerLink="/novo"
@@ -11,6 +14,17 @@
       >
     </div>
 
+    <!-- Campo de busca -->
+    <div class="mb-6">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        placeholder="Buscar por nome ou email..."
+        class="w-full border border-gray-300 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#0D2D6A]"
+      />
+    </div>
+
+    <!-- Lista de clientes -->
     <ul *ngIf="clients.length > 0; else empty" class="space-y-4">
       <li
         *ngFor="let client of clients"
@@ -37,10 +51,33 @@
       </li>
     </ul>
 
-    <div *ngIf="errorMessage" class="text-red-600 text-sm text-center">
+    <!-- Paginação -->
+    <div class="mt-6 flex justify-between items-center">
+      <button
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+      >
+        Anterior
+      </button>
+
+      <span class="text-sm text-gray-600">Página {{ currentPage }}</span>
+
+      <button
+        (click)="nextPage()"
+        [disabled]="!hasMore"
+        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+      >
+        Próximo
+      </button>
+    </div>
+
+    <!-- Mensagem de erro -->
+    <div *ngIf="errorMessage" class="text-red-600 text-sm text-center mt-4">
       {{ errorMessage }}
     </div>
 
+    <!-- Nenhum cliente -->
     <ng-template #empty>
       <p class="text-gray-500 text-center py-4">
         Nenhum cliente cadastrado ainda.

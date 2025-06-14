@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Query,
   Post,
   Body,
   Param,
@@ -18,8 +19,12 @@ export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
   @Get()
-  findAll(): Promise<Client[]> {
-    return this.clientService.findAll();
+  async findAll(
+    @Query('search') search?: string,
+    @Query('page', ParseIntPipe) page: number = 1,
+    @Query('limit', ParseIntPipe) limit: number = 4
+  ): Promise<Client[]> {
+    return this.clientService.findAll(search, page, limit);
   }
 
   @Get(':id')

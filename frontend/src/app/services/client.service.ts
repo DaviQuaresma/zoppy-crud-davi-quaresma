@@ -18,8 +18,17 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.apiUrl);
+  getClients(
+    search: string = '',
+    page: number = 1,
+    limit: number = 4
+  ): Observable<Client[]> {
+    const params = {
+      search,
+      page: page.toString(),
+      limit: limit.toString(),
+    };
+    return this.http.get<Client[]>(this.apiUrl, { params });
   }
 
   getClientById(id: number): Observable<Client> {
@@ -37,5 +46,4 @@ export class ClientService {
   deleteClient(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
 }
