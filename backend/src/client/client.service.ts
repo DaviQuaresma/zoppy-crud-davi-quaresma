@@ -4,7 +4,9 @@ import { Client } from './client.model';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ClientService {
   constructor(
     @InjectModel(Client)
