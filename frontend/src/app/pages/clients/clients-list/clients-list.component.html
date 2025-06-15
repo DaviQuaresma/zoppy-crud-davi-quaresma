@@ -1,17 +1,22 @@
 <div
-  class="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 bg-gray-100"
+  class="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors duration-300"
 >
-  <section class="w-full max-w-3xl bg-white p-6 rounded-2xl shadow-lg">
+  <section
+    class="w-full max-w-3xl bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg transition-colors duration-300"
+  >
     <!-- Cabeçalho -->
     <div
       class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4"
     >
-      <h2 class="text-2xl font-bold text-[#0D2D6A]">Lista de Clientes</h2>
+      <h2 class="text-2xl font-bold text-[#0D2D6A] dark:text-blue-200">
+        Lista de Clientes
+      </h2>
       <a
         routerLink="/novo"
         class="bg-[#0D2D6A] hover:bg-[#0b2456] text-white px-4 py-2 rounded-md shadow transition"
-        >Novo Cliente</a
       >
+        Novo Cliente
+      </a>
     </div>
 
     <!-- Campo de busca -->
@@ -20,7 +25,7 @@
         [(ngModel)]="searchTerm"
         (input)="onSearch()"
         placeholder="Buscar por nome ou email..."
-        class="w-full border border-gray-300 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#0D2D6A]"
+        class="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#0D2D6A] transition"
       />
     </div>
 
@@ -28,22 +33,27 @@
     <ul *ngIf="clients.length > 0; else empty" class="space-y-4">
       <li
         *ngFor="let client of clients"
-        class="p-4 bg-gray-50 rounded-md shadow-sm hover:shadow transition"
+        class="p-4 bg-gray-50 dark:bg-gray-700 rounded-md shadow-sm hover:shadow transition"
       >
-        <p class="text-sm text-gray-500">ID #{{ client.id }}</p>
-        <h3 class="text-lg font-semibold text-gray-800">{{ client.name }}</h3>
-        <p class="text-gray-600">{{ client.email }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          ID #{{ client.id }}
+        </p>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+          {{ client.name }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">{{ client.email }}</p>
 
         <div class="mt-3 flex gap-3">
           <a
             [routerLink]="['/editar', client.id]"
-            class="text-sm text-blue-600 hover:underline font-medium"
-            >Editar</a
+            class="text-sm text-blue-600 dark:text-blue-300 hover:underline font-medium"
           >
+            Editar
+          </a>
 
           <button
             (click)="deleteClient(client.id!)"
-            class="text-sm text-red-600 hover:underline font-medium"
+            class="text-sm text-red-600 dark:text-red-400 hover:underline font-medium"
           >
             Excluir
           </button>
@@ -52,34 +62,49 @@
     </ul>
 
     <!-- Paginação -->
-    <div class="mt-6 flex justify-between items-center">
+    <div class="mt-6 flex flex-wrap justify-center items-center gap-2">
       <button
         (click)="prevPage()"
         [disabled]="currentPage === 1"
-        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-50 text-sm transition"
       >
         Anterior
       </button>
 
-      <span class="text-sm text-gray-600">Página {{ currentPage }}</span>
+      <ng-container *ngFor="let page of totalPagesArray">
+        <button
+          (click)="goToPage(page)"
+          [ngClass]="{
+            'bg-[#0D2D6A] text-white': currentPage === page,
+            'bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-white':
+              currentPage !== page
+          }"
+          class="px-3 py-1 rounded-md text-sm hover:bg-gray-200 dark:hover:bg-gray-500 transition"
+        >
+          {{ page }}
+        </button>
+      </ng-container>
 
       <button
         (click)="nextPage()"
         [disabled]="!hasMore"
-        class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-50 text-sm transition"
       >
         Próximo
       </button>
     </div>
 
     <!-- Mensagem de erro -->
-    <div *ngIf="errorMessage" class="text-red-600 text-sm text-center mt-4">
+    <div
+      *ngIf="errorMessage"
+      class="text-red-600 dark:text-red-400 text-sm text-center mt-4"
+    >
       {{ errorMessage }}
     </div>
 
     <!-- Nenhum cliente -->
     <ng-template #empty>
-      <p class="text-gray-500 text-center py-4">
+      <p class="text-gray-500 dark:text-gray-400 text-center py-4">
         Nenhum cliente cadastrado ainda.
       </p>
     </ng-template>

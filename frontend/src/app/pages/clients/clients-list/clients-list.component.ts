@@ -11,9 +11,9 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './clients-list.component.html',
   styleUrls: ['./clients-list.component.css'],
 })
-
 export class ClientsListComponent implements OnInit {
   clients: Client[] = [];
+  totalPagesArray: number[] = [];
   searchTerm = '';
   currentPage = 1;
   limit = 4;
@@ -34,11 +34,21 @@ export class ClientsListComponent implements OnInit {
         next: (res) => {
           this.clients = res;
           this.hasMore = res.length === this.limit;
+
+          const total =
+            this.currentPage * this.limit + (this.hasMore ? this.limit : 0);
+          const pages = Math.ceil(total / this.limit);
+          this.totalPagesArray = Array.from({ length: pages }, (_, i) => i + 1);
         },
         error: (err) => {
           console.error('Erro ao carregar clientes', err);
         },
       });
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+    this.loadClients();
   }
 
   onSearch(): void {
