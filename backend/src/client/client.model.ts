@@ -7,4 +7,16 @@ export class Client extends Model {
 
   @Column
   email: string;
+
+  @Column
+  phone: string;
+
+  @Column
+  company: string;
+
+  @Column
+  cep: string;
+
+  @Column
+  cnpj: string;
 }

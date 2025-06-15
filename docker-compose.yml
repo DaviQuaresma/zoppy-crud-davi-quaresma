@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   mysql:
     image: mysql:8.0
@@ -16,13 +17,14 @@ services:
     depends_on:
       - mysql
     ports:
-      - "3001:3000"
+      - "3050:3000"
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USER: root
       DB_PASS: root
       DB_NAME: zoppydb
+    working_dir: /app
     volumes:
       - ./backend:/app
 
@@ -30,10 +32,9 @@ services:
     build: ./frontend
     ports:
       - "4200:4200"
-    volumes:
-      - ./frontend:/app
+    depends_on:
+      - backend
     working_dir: /app
-    command: npm start
 
 volumes:
   mysql_data:

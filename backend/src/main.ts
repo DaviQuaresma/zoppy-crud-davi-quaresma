@@ -1,13 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { Sequelize } from 'sequelize-typescript';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors(); // <- Aqui você habilita CORS padrão (tudo liberado)
+  const sequelize = app.get(Sequelize);
+  await sequelize.sync({ force: true });
+
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Zoppy API')

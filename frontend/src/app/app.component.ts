@@ -5,10 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    CommonModule, // ✅ necessário para *ngIf, ngClass etc
-  ],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -16,12 +13,17 @@ export class AppComponent {
   isDark = false;
 
   ngOnInit(): void {
-    this.isDark = localStorage.getItem('theme') === 'dark';
-    this.setTheme(this.isDark);
+    if (typeof window !== 'undefined') {
+      this.isDark = localStorage.getItem('theme') === 'dark';
+      this.setTheme(this.isDark);
+    }
   }
 
   toggleDarkMode(): void {
     this.isDark = !this.isDark;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+    }
     this.setTheme(this.isDark);
   }
 

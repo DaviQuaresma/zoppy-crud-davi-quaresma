@@ -29,10 +29,13 @@ export class ClientService {
         [Op.or]: [
           { name: { [Op.like]: `%${search}%` } },
           { email: { [Op.like]: `%${search}%` } },
+          { phone: { [Op.like]: `%${search}%` } },
+          { company: { [Op.like]: `%${search}%` } },
+          { cep: { [Op.like]: `%${search}%` } },
+          { cnpj: { [Op.like]: `%${search}%` } },
         ],
       };
     }
-
     return this.clientModel.findAll(options);
   }
 

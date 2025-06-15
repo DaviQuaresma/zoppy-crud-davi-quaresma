@@ -12,8 +12,16 @@ import { ClientService, Client } from '../../../services/client.service';
   styleUrls: ['./clients-form.component.css'],
 })
 export class ClientsFormComponent implements OnInit {
-  client: Client = { name: '', email: '' };
-  errorMessage: string = ''; // ✅ Adicionado para tratar mensagens de erro
+  client: Client = {
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    cep: '',
+    cnpj: '',
+  };
+  
+  errorMessage: string = '';
   isEditMode = false;
   id?: number;
 
@@ -34,6 +42,10 @@ export class ClientsFormComponent implements OnInit {
       });
     }
   }
+
+  goBack() {
+  this.router.navigate(['/']);
+}
 
   onSubmit(): void {
     this.errorMessage = '';

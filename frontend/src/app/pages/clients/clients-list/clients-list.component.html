@@ -2,48 +2,61 @@
   class="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 bg-gray-100 dark:bg-gray-900 transition-colors duration-300"
 >
   <section
-    class="w-full max-w-3xl bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg transition-colors duration-300"
+    class="w-full max-w-4xl bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl transition-colors duration-300"
   >
     <!-- Cabeçalho -->
     <div
-      class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4"
+      class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8"
     >
-      <h2 class="text-2xl font-bold text-[#0D2D6A] dark:text-blue-200">
+      <h2
+        class="text-3xl font-bold text-[#0D2D6A] dark:text-blue-200 tracking-tight"
+      >
         Lista de Clientes
       </h2>
       <a
         routerLink="/novo"
-        class="bg-[#0D2D6A] hover:bg-[#0b2456] text-white px-4 py-2 rounded-md shadow transition"
+        class="bg-[#0D2D6A] hover:bg-[#0b2456] text-white px-5 py-2 rounded-lg font-medium shadow-md transition-all duration-200"
       >
-        Novo Cliente
+        + Novo Cliente
       </a>
     </div>
 
     <!-- Campo de busca -->
-    <div class="mb-6">
+    <div class="mb-8">
       <input
         [(ngModel)]="searchTerm"
         (input)="onSearch()"
         placeholder="Buscar por nome ou email..."
-        class="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-[#0D2D6A] transition"
+        class="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-5 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0D2D6A] transition-all"
       />
     </div>
 
     <!-- Lista de clientes -->
-    <ul *ngIf="clients.length > 0; else empty" class="space-y-4">
+    <ul *ngIf="clients.length > 0; else empty" class="space-y-6">
       <li
         *ngFor="let client of clients"
-        class="p-4 bg-gray-50 dark:bg-gray-700 rounded-md shadow-sm hover:shadow transition"
+        class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
       >
-        <p class="text-sm text-gray-500 dark:text-gray-400">
+        <p class="text-sm text-gray-400 dark:text-gray-300">
           ID #{{ client.id }}
         </p>
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white">
           {{ client.name }}
         </h3>
-        <p class="text-gray-600 dark:text-gray-300">{{ client.email }}</p>
+        <p class="text-sm text-gray-700 dark:text-gray-300">
+          {{ client.email }}
+        </p>
 
-        <div class="mt-3 flex gap-3">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 mt-3 text-sm text-gray-600 dark:text-gray-400"
+        >
+          <p>Empresa: {{ client.company }}</p>
+          <p>Telefone: {{ client.phone }}</p>
+          <p>CEP: {{ client.cep }}</p>
+          <p>CNPJ: {{ client.cnpj }}</p>
+        </div>
+
+        <div class="mt-4 flex gap-4">
           <a
             [routerLink]="['/editar', client.id]"
             class="text-sm text-blue-600 dark:text-blue-300 hover:underline font-medium"
@@ -62,11 +75,11 @@
     </ul>
 
     <!-- Paginação -->
-    <div class="mt-6 flex flex-wrap justify-center items-center gap-2">
+    <div class="mt-8 flex flex-wrap justify-center items-center gap-3">
       <button
         (click)="prevPage()"
         [disabled]="currentPage === 1"
-        class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-50 text-sm transition"
+        class="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-50 text-sm font-medium transition"
       >
         Anterior
       </button>
@@ -79,7 +92,7 @@
             'bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-white':
               currentPage !== page
           }"
-          class="px-3 py-1 rounded-md text-sm hover:bg-gray-200 dark:hover:bg-gray-500 transition"
+          class="px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-500 transition"
         >
           {{ page }}
         </button>
@@ -88,7 +101,7 @@
       <button
         (click)="nextPage()"
         [disabled]="!hasMore"
-        class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-50 text-sm transition"
+        class="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 disabled:opacity-50 text-sm font-medium transition"
       >
         Próximo
       </button>
@@ -97,14 +110,16 @@
     <!-- Mensagem de erro -->
     <div
       *ngIf="errorMessage"
-      class="text-red-600 dark:text-red-400 text-sm text-center mt-4"
+      class="text-red-600 dark:text-red-400 text-sm text-center mt-6"
     >
       {{ errorMessage }}
     </div>
 
     <!-- Nenhum cliente -->
     <ng-template #empty>
-      <p class="text-gray-500 dark:text-gray-400 text-center py-4">
+      <p
+        class="text-gray-500 dark:text-gray-400 text-center py-8 text-lg font-medium"
+      >
         Nenhum cliente cadastrado ainda.
       </p>
     </ng-template>

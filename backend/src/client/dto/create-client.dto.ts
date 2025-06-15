@@ -14,4 +14,12 @@ export class CreateClientDto {
   @IsString()
   @IsOptional()
   company?: string;
+
+  @IsString()
+  @IsOptional()
+  cep?: string;
+
+  @IsString()
+  @IsOptional()
+  cnpj?: string;
 }

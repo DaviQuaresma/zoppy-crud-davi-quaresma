@@ -1,5 +1,3 @@
-// src/app/services/client.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,6 +6,10 @@ export interface Client {
   id?: number;
   name: string;
   email: string;
+  phone: string;
+  company: string;
+  cep: string;
+  cnpj: string;
 }
 
 @Injectable({

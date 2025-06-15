@@ -4,12 +4,21 @@
   <div
     class="w-full max-w-xl bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg transition-colors duration-300"
   >
-    <h2
-      class="text-2xl font-bold text-[#0D2D6A] dark:text-blue-200 mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+    <div
+      class="flex justify-between items-center gap-3 mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
     >
+    <h2 class="text-2xl font-bold text-[#0D2D6A] dark:text-blue-200">
       Cadastro de Cliente
     </h2>
-
+    <button
+      type="button"
+      (click)="goBack()"
+      class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-md p-3 shadow-sm transition"
+      aria-label="Voltar"
+    >
+      ←
+    </button>
+    </div>
     <form (ngSubmit)="onSubmit()" class="space-y-6">
       <!-- Nome -->
       <div>
@@ -44,6 +53,74 @@
           [(ngModel)]="client.email"
           required
           placeholder="Ex: joao@email.com"
+          class="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-[#0D2D6A] focus:ring-[#0D2D6A] rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 transition"
+        />
+      </div>
+
+      <!-- Telefone -->
+      <div>
+        <label
+          for="phone"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+        >
+          Telefone
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          [(ngModel)]="client.phone"
+          placeholder="(99) 99999-9999"
+          class="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-[#0D2D6A] focus:ring-[#0D2D6A] rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 transition"
+        />
+      </div>
+
+      <!-- Empresa -->
+      <div>
+        <label
+          for="company"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+        >
+          Empresa
+        </label>
+        <input
+          id="company"
+          name="company"
+          [(ngModel)]="client.company"
+          placeholder="Nome da empresa"
+          class="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-[#0D2D6A] focus:ring-[#0D2D6A] rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 transition"
+        />
+      </div>
+
+      <!-- Cep -->
+      <div>
+        <label
+          for="cep"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+        >
+          Cep
+        </label>
+        <input
+          id="cep"
+          name="cep"
+          [(ngModel)]="client.cep"
+          placeholder="00000-000"
+          class="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-[#0D2D6A] focus:ring-[#0D2D6A] rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 transition"
+        />
+      </div>
+
+      <!-- CNPJ  -->
+      <div>
+        <label
+          for="cnpj"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+        >
+          cnpj
+        </label>
+        <input
+          id="cnpj"
+          name="cnpj"
+          [(ngModel)]="client.cnpj"
+          placeholder="00.000.000/0000-00"
           class="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-[#0D2D6A] focus:ring-[#0D2D6A] rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-1 transition"
         />
       </div>
