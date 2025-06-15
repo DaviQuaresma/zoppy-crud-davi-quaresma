@@ -11,7 +11,7 @@ RUN npm run build --configuration=production
 FROM node:18-alpine
 
 WORKDIR /app
-COPY --from=builder /app/dist/frontend /app/dist
+COPY --from=builder /app/dist/frontend/browser/browser /app
 RUN npm install -g http-server
 EXPOSE 4200
-CMD ["http-server", "dist/browser", "-p", "4200"]
+CMD ["http-server", "/app", "-p", "4200"]

@@ -19,8 +19,9 @@ services:
 
   backend:
     build: ./backend
+    restart: always
     ports:
-      - "3050:3000"
+      - "3050:3050"
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
@@ -36,6 +37,7 @@ services:
 
   frontend:
     build: ./frontend
+    restart: always
     ports:
       - "4200:4200"
     depends_on:
