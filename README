@@ -1,6 +1,6 @@
 # Zoppy CRUD - Clientes
 
-Este projeto foi desenvolvido como parte de um desafio técnico com foco na stack usada pela empresa Zoppy. A proposta consiste em um sistema completo de cadastro de clientes com funcionalidades de criação, edição, remoção, listagem e busca. Inclui testes unitários, containerização com Docker e boas práticas de arquitetura e experiência do usuário.
+Este projeto foi desenvolvido como parte de um desafio técnico com foco na stack usada pela empresa Zoppy. A proposta consiste em um sistema completo de cadastro de clientes com funcionalidades de criação, edição, remoção, listagem e busca. Inclui testes unitários, containerização com Docker e boas práticas de arquitetura e experiência do usuário. Utilizei a estrutura do MonoRepo para a minha aplicação.
 
 ---
 
