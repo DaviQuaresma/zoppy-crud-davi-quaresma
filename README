@@ -58,3 +58,82 @@ Este projeto foi desenvolvido como parte de um desafio técnico com foco na stac
 cd backend
 npm install
 npm run start:dev
+```
+
+### Frontend (porta 4200)
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Acesse: [http://localhost:4200](http://localhost:4200)
+
+---
+
+## 📅 Como rodar com Docker (recomendado)
+
+```bash
+docker-compose up --build
+```
+
+- Frontend: [http://localhost:4200](http://localhost:4200)  
+- Backend: [http://localhost:3050](http://localhost:3050)  
+- MySQL: acessível via porta **3307** (ex: `localhost:3307`, user: `root`, senha: `root`)
+
+Para resetar o ambiente:
+
+```bash
+docker-compose down --volumes --remove-orphans
+```
+
+---
+
+## 📆 Estrutura do Projeto
+
+```
+├── backend
+│   ├── src
+│   │   ├── client
+│   │   │   ├── client.controller.ts
+│   │   │   ├── client.service.ts
+│   │   │   └── dto/*.ts
+│   │   └── main.ts
+│   ├── test
+│   │   └── unit tests com Jest
+│   └── Dockerfile
+├── frontend
+│   ├── src
+│   │   ├── app
+│   │   │   ├── components
+│   │   │   ├── pages
+│   │   │   └── services
+│   ├── tailwind.config.js
+│   └── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+## 💡 Observações
+
+- A aplicação está funcional, responsiva e com testes.
+- O banco de dados é inicializado apenas via Docker.
+- Foram usados `rxjs`, `debounceTime` e `BehaviorSubject` para filtros no frontend.
+- A estrutura do NestJS segue boas práticas de separação de módulos e injeção de dependência.
+- A aplicação está pronta para expansão, inclusive para um segundo CRUD (ex: Produtos ou Pedidos) se for necessário.
+
+---
+
+## 🔧 Contato
+
+Desenvolvido por **Davi Quaresma** – [LinkedIn](https://www.linkedin.com/in/daviquaresma)
+
+> Em caso de dúvidas ou problemas para execução, entre em contato ou abra uma issue no repositório. ✨
+
+---
+
+> _"A simplicidade é a sofisticação máxima."_  
+> — Leonardo da Vinci
