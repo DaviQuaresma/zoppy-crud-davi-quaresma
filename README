@@ -1,90 +1,138 @@
------ docker:
+# Zoppy CRUD - Clientes
 
--resetar o docker forçado:
-wsl --shutdown
+Este projeto foi desenvolvido como parte de um desafio técnico com foco na stack usada pela empresa Zoppy. A proposta consiste em um sistema completo de cadastro de clientes com funcionalidades de criação, edição, remoção, listagem e busca. Inclui testes unitários, containerização com Docker e boas práticas de arquitetura e experiência do usuário.
 
--validar o se o docker ta rodando:
-docker info
+---
 
--Checar os serviços docker rodando:
-docker ps
-docker ps -a
+## 🚀 Stack Tecnológica
 
--Iniciar os containers:
-docker-compose up -d
+- **Backend:** Node.js, NestJS 10, Sequelize ORM, MySQL  
+- **Frontend:** Angular 19, TailwindCSS, RxJS  
+- **Testes:** Jest (Cobertura superior a 80%)  
+- **Containerização:** Docker & Docker Compose  
 
--Chegar o log do docker:
-docker logs id(pego no docker ps)
-docker logs -f id(pego no docker ps)
+---
 
--Subir/atualizar containers:
-docker compose up -d --build
-docker compose build --no-cache
+## 📄 Funcionalidades Implementadas
 
--Atualizar em caso de estiver rodando:
-docker compose down
-docker compose up -d --build
+### CRUD de Clientes
 
--Limpar cache:
-docker system prune -af
+- **Listagem paginada e com busca** por nome/email  
+- **Criação de cliente** com dados:  
+  - nome  
+  - email  
+  - telefone  
+  - empresa  
+  - CEP  
+  - CNPJ  
+- **Edição de cliente** com preenchimento automático do form  
+- **Exclusão de cliente** com confirmação  
 
--Remover tudo antigo:
+### Extras (Frontend)
+
+- Estilização com **TailwindCSS**  
+- Responsividade com abordagem **mobile first**  
+- Filtro reativo com **debounce**  
+- Componentes com controle de estado via **RxJS + Observables**  
+
+### Extras (Backend)
+
+- Testes unitários com Jest (>80% de cobertura)  
+- Controle de paginação (`page` + `limit` via query params)  
+- Filtro de busca por nome/email  
+- Sequelize com MySQL e **migração automática**  
+- Ambiente de execução isolado via Docker  
+
+---
+
+## ⚙️ Como rodar localmente (sem Docker)
+
+### Banco de dados (Atenção: só via Docker)
+
+> O banco de dados MySQL **não** está configurado para execução local. Utilize o ambiente Docker para isso.
+
+### Backend (porta 3050)
+
+```bash
+cd backend
+npm install
+npm run start:dev
+```
+
+### Frontend (porta 4200)
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Acesse: [http://localhost:4200](http://localhost:4200)
+
+---
+
+## 📅 Como rodar com Docker (recomendado)
+
+```bash
+docker-compose up --build
+```
+
+- Frontend: [http://localhost:4200](http://localhost:4200)  
+- Backend: [http://localhost:3050](http://localhost:3050)  
+- MySQL: acessível via porta **3307** (ex: `localhost:3307`, user: `root`, senha: `root`)
+
+Para resetar o ambiente:
+
+```bash
 docker-compose down --volumes --remove-orphans
+```
 
--Ver as variaveis de ambiente do docker:
-docker compose exec postgres env | Select-String POSTGRES
-No lugar de "postgres" coloca o nome do serviço e no "POSTGRES", a variavel do enviroment que quer ver
+---
 
--Testar conexão manual:
-docker exec -it wernetech_app bash
+## 📆 Estrutura do Projeto
 
--Após testar tente conectar ao banco:
-psql -U wernetech_admin -d empresa (troque as variaveis de acordo com o seu banco)
+```
+├── backend
+│   ├── src
+│   │   ├── client
+│   │   │   ├── client.controller.ts
+│   │   │   ├── client.service.ts
+│   │   │   └── dto/*.ts
+│   │   └── main.ts
+│   ├── test
+│   │   └── unit tests com Jest
+│   └── Dockerfile
+├── frontend
+│   ├── src
+│   │   ├── app
+│   │   │   ├── components
+│   │   │   ├── pages
+│   │   │   └── services
+│   ├── tailwind.config.js
+│   └── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
 
--Verifique os containers que ainda estão usando a rede:
-docker ps -a --filter network=empresa-wernetech_default
+---
 
--Força a remoção de containers ainda ativos:
-docker rm -f $(docker ps -aq)
+## 💡 Observações
 
--Comando pra ver as portas que o docker ta rodando:
-docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}"
+- A aplicação está funcional, responsiva e com testes.
+- O banco de dados é inicializado apenas via Docker.
+- Foram usados `rxjs`, `debounceTime` e `BehaviorSubject` para filtros no frontend.
+- A estrutura do NestJS segue boas práticas de separação de módulos e injeção de dependência.
+- A aplicação está pronta para expansão, inclusive para um segundo CRUD (ex: Produtos ou Pedidos) se for necessário.
 
--Comandos reset dentro da vps:
-docker-compose down -v
-docker-compose build --no-cache
-docker-compose up
+---
 
------ NGINX:
+## 🔧 Contato
 
--Abrir o arquivo de config do NGINX:
-sudo nano /etc/nginx/sites-available/default
+Desenvolvido por **Davi Quaresma** – [LinkedIn](https://www.linkedin.com/in/daviquaresma)
 
--Bloco server { ... }:
-server {
-listen 80;
-server*name *;
+> Em caso de dúvidas ou problemas para execução, entre em contato ou abra uma issue no repositório.
 
-    location /api/ {
-        proxy_pass http://localhost:4000/;
-    }
+---
 
-    location / {
-        proxy_pass http://localhost:3002/;
-    }
-
-}
-
-listen 80; → Escuta na porta padrão HTTP.
-server*name *; → Aceita qualquer nome de host (útil quando não tem domínio).
-location /api/ → Tudo que vier de /api/ vai pro backend Express na porta 4000.
-location / → Todo o resto vai pro frontend Next.js na porta 3002.
-
--Testar a config:
-sudo nginx -t
-
--Ver se está rodando:
-sudo systemctl status nginx
-
--Reiniciar o serviço NGINX:
-sudo systemctl restart nginx
+> _"A simplicidade é a sofisticação máxima."_  
+> — Leonardo da Vinci
