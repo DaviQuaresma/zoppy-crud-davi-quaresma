@@ -8,7 +8,6 @@ Este projeto foi desenvolvido como parte de um desafio técnico com foco na stac
 
 - **Backend:** Node.js, NestJS 10, Sequelize ORM, MySQL  
 - **Frontend:** Angular 19, TailwindCSS, RxJS  
-- **Mensageria e Workers:** Estrutura BullMQ e Redis preparada (não usada nesse CRUD)  
 - **Testes:** Jest (Cobertura superior a 80%)  
 - **Containerização:** Docker & Docker Compose  
 
@@ -131,7 +130,7 @@ docker-compose down --volumes --remove-orphans
 
 Desenvolvido por **Davi Quaresma** – [LinkedIn](https://www.linkedin.com/in/daviquaresma)
 
-> Em caso de dúvidas ou problemas para execução, entre em contato ou abra uma issue no repositório. ✨
+> Em caso de dúvidas ou problemas para execução, entre em contato ou abra uma issue no repositório.
 
 ---
 
