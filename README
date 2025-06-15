@@ -45,18 +45,35 @@ Este projeto foi desenvolvido como parte de um desafio técnico com foco na stac
 
 ---
 
+## 📅 Como rodar com Docker (recomendado)
+
+```bash
+docker compose up -d --build
+docker-compose up -d
+```
+
+- Frontend: [http://localhost:4200](http://127.0.0.1:4200)  
+- Backend: [http://localhost:3050](http://localhost:3050)  
+- MySQL: acessível via porta **3307** (ex: `localhost:3307`, user: `root`, senha: `root`)
+
+Para resetar o ambiente:
+
+```bash
+docker-compose down --volumes --remove-orphans
+docker compose up -d --build
+docker-compose up -d
+```
+
+---
+
 ## ⚙️ Como rodar localmente (sem Docker)
-
-### Banco de dados (Atenção: só via Docker)
-
-> O banco de dados MySQL **não** está configurado para execução local. Utilize o ambiente Docker para isso.
 
 ### Backend (porta 3050)
 
 ```bash
 cd backend
 npm install
-npm run start:dev
+npm run start
 ```
 
 ### Frontend (porta 4200)
@@ -68,24 +85,6 @@ npm start
 ```
 
 Acesse: [http://localhost:4200](http://localhost:4200)
-
----
-
-## 📅 Como rodar com Docker (recomendado)
-
-```bash
-docker-compose up --build
-```
-
-- Frontend: [http://localhost:4200](http://localhost:4200)  
-- Backend: [http://localhost:3050](http://localhost:3050)  
-- MySQL: acessível via porta **3307** (ex: `localhost:3307`, user: `root`, senha: `root`)
-
-Para resetar o ambiente:
-
-```bash
-docker-compose down --volumes --remove-orphans
-```
 
 ---
 
