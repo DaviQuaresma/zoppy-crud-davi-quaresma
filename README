@@ -53,7 +53,7 @@ docker-compose up -d
 ```
 
 - Frontend: [http://localhost:4200](http://127.0.0.1:4200)  
-- Backend: [http://localhost:3050](http://localhost:3050)  
+- Backend: [http://backend:3050](http://localhost:3050)  
 - MySQL: acessível via porta **3307** (ex: `localhost:3307`, user: `root`, senha: `root`)
 
 Para resetar o ambiente:
